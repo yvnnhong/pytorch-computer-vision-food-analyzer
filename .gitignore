@@ -1,0 +1,32 @@
+# Data folders (large datasets)
+data/raw/
+data/processed/
+*.jpg
+*.jpeg
+*.png
+*.zip
+*.tar.gz
+
+# Model checkpoints (large files)
+models/*.pth
+models/*.pt
+*.pkl
+
+# Logs
+logs/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
