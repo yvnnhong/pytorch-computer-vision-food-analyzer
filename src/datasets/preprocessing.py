@@ -23,6 +23,7 @@ def create_cuisine_mappings():
     """Create food-to-cuisine mapping for all 101 Food-101 classes"""
     
     # Food-101 class names to cuisine mapping
+    #hardcoded since food101 doesnt contain the cuisine type. 
     cuisine_mapping = {
         # Italian
         'pizza': 'Italian',
