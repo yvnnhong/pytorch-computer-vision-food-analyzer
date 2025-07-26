@@ -39,3 +39,6 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+#ignore giant file
+models/*.pth.broken
