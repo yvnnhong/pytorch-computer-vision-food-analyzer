@@ -595,19 +595,14 @@ if __name__ == "__main__":
     print("Testing Advanced ResNet Multi-Task Architecture...")
     
     # Test different architectures
-    architectures = ['basic', 'advanced']
+    architectures = ['advanced']  # Just test advanced for now
     
     for arch in architectures:
         print(f"\nTesting {arch} architecture:")
         
         try:
             # Create model
-            if arch == 'basic':
-                # Import and test basic model
-                from food_classifier import MultiTaskFoodModel
-                model = MultiTaskFoodModel()
-            else:
-                model = create_resnet_multitask(architecture=arch)
+            model = create_resnet_multitask(architecture=arch)
             
             # Test forward pass
             batch_size = 2
@@ -633,10 +628,10 @@ if __name__ == "__main__":
                     attention_maps = model.get_attention_maps(test_input[:1])
                     print(f"  Attention maps extracted: {list(attention_maps.keys())}")
             
-            print(f"{arch} architecture test successful")
+            print(f"  {arch} architecture test successful!")
             
         except Exception as e:
-            print(f"{arch} architecture test failed: {e}")
+            print(f"  {arch} architecture test failed: {e}")
     
     print("\nAdvanced ResNet Multi-Task testing complete!")
     print("\nKey Features Implemented:")

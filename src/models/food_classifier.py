@@ -125,7 +125,7 @@ class MultiTaskFoodModel(nn.Module):
             
             # Format nutrition values (ensure positive)
             nutrition = nutrition_values[0].cpu().numpy()
-            nutrition = [max(0, val) for val in nutrition]  # Ensure non-negative
+            nutrition = [max(0, float(val)) for val in nutrition]  # Ensure non-negative
             
             return {
                 'food': {
@@ -139,10 +139,10 @@ class MultiTaskFoodModel(nn.Module):
                     'confidence': cuisine_confidence
                 },
                 'nutrition': {
-                    'calories': round(nutrition[0], 1),
-                    'protein': round(nutrition[1], 1),
-                    'carbs': round(nutrition[2], 1),
-                    'fat': round(nutrition[3], 1)
+                    'calories': float(round(nutrition[0], 1)),
+                    'protein': float(round(nutrition[1], 1)),
+                    'carbs': float(round(nutrition[2], 1)),
+                    'fat': float(round(nutrition[3], 1))
                 }
             }
     
@@ -230,19 +230,9 @@ class MultiTaskLoss(nn.Module):
         return total_loss, loss_dict
 
 
-def create_model(num_cuisine_classes=10, device='cpu'):
-    """
-    Factory function to create and initialize the multi-task model.
-    
-    Args:
-        num_cuisine_classes: Number of cuisine categories
-        device: Device to load model on ('cpu' or 'cuda')
-        
-    Returns:
-        MultiTaskFoodModel: Initialized model
-    """
+def create_model(num_food_classes=101, num_cuisine_classes=10, device='cpu'):
     model = MultiTaskFoodModel(
-        num_food_classes=101,  # Food-101 has 101 classes
+        num_food_classes=num_food_classes,
         num_cuisine_classes=num_cuisine_classes,
         nutrition_dim=4,  # calories, protein, carbs, fat
         dropout_rate=0.3

@@ -13,7 +13,7 @@ from tqdm import tqdm
 import sys
 sys.path.append('.')
 from src.models.food_classifier import MultiTaskFoodModel, MultiTaskLoss, create_model
-from src.datasets.dataset import create_dataloaders
+from src.datasets.data_loaders import create_dataloaders
 from src.utils.config import *
 
 class MultiTaskTrainer:
@@ -328,6 +328,7 @@ def main():
     # Create model
     print("\nCreating model...")
     model = create_model(
+        num_food_classes=class_info['num_food_classes'],
         num_cuisine_classes=class_info['num_cuisine_classes'],
         device=device
     )

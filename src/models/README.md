@@ -47,3 +47,20 @@ model.load_state_dict(torch.load('checkpoints/best_model.pth'))
 - PyTorch >= 2.0.0
 - torchvision for pre-trained backbones
 - GPU recommended for training (8GB+ VRAM)
+
+## Training Dataset Limitations
+
+The current food classification performance is limited by dataset constraints:
+
+- **Class mismatch**: Model expects 101 food classes but dataset contains 126 classes
+- **Insufficient training data**: Only 1-3 samples per food class in the subset used for training
+- **Severe data imbalance**: Inadequate representation across food categories
+
+## Future Improvements
+
+For production deployment, the following enhancements are recommended:
+
+- Expand training dataset beyond Food-101 to include more diverse food images
+- Implement data augmentation strategies to increase effective sample size per class
+- Balance class distribution through strategic sampling or synthetic data generation
+- Consider transfer learning from larger food datasets or self-supervised pre-training
