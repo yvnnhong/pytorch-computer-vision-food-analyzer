@@ -8,6 +8,7 @@ Mathematical Foundation:
 - Focal Loss for addressing class imbalance (Lin et al., 2017)  
 - Task correlation regularization for multi-task optimization
 - Gradient harmonization for balanced task learning
+NOTETO SELF: REVIEW EVERYTHING TMW!!!!  
 """
 #THIS IS JUST A PROTOTYPE -- CHECK OVER LATER 
 
