@@ -1,7 +1,7 @@
-# FastAPI REST API
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from contextlib import asynccontextmanager
 import torch
 from PIL import Image
 import io
@@ -23,13 +23,34 @@ from src.datasets.dataset import get_transforms
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Initialize FastAPI app
+# Initialize the analyzer globally
+analyzer = None
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    global analyzer
+    logger.info("Starting Food Analyzer API...")
+    analyzer = FoodAnalyzer()
+    try:
+        analyzer.load_model()
+        logger.info("API ready for food analysis!")
+    except Exception as e:
+        logger.error(f"Failed to load model: {e}")
+    
+    yield
+    
+    # Shutdown (if needed)
+    logger.info("Shutting down Food Analyzer API...")
+
+# Initialize FastAPI app with lifespan
 app = FastAPI(
     title="Multi-Task Food Analyzer API",
     description="AI-powered food classification, cuisine detection, and nutrition estimation",
     version="1.0.0",
     docs_url="/docs",  # Swagger UI at /docs
-    redoc_url="/redoc"  # Alternative docs at /redoc
+    redoc_url="/redoc",  # Alternative docs at /redoc
+    lifespan=lifespan
 )
 
 # Add CORS middleware for web frontend
@@ -141,10 +162,10 @@ class FoodAnalyzer:
                         "confidence": round(prediction['cuisine']['confidence'], 4)
                     },
                     "nutrition": {
-                        "calories": round(prediction['nutrition']['calories'], 1),
-                        "protein": round(prediction['nutrition']['protein'], 1),
-                        "carbs": round(prediction['nutrition']['carbs'], 1),
-                        "fat": round(prediction['nutrition']['fat'], 1)
+                        "calories": float(round(prediction['nutrition']['calories'], 1)),
+                        "protein": float(round(prediction['nutrition']['protein'], 1)),
+                        "carbs": float(round(prediction['nutrition']['carbs'], 1)),
+                        "fat": float(round(prediction['nutrition']['fat'], 1))
                     }
                 },
                 "metadata": {
@@ -160,19 +181,10 @@ class FoodAnalyzer:
             logger.error(f"Error during analysis: {str(e)}")
             raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
 
-# Initialize the analyzer
-analyzer = FoodAnalyzer()
+# Initialize the analyzer will be done in lifespan
+# analyzer = FoodAnalyzer()  # Moved to lifespan function
 
-@app.on_event("startup")
-async def startup_event():
-    """Load model on startup"""
-    logger.info("Starting Food Analyzer API...")
-    try:
-        analyzer.load_model()
-        logger.info("API ready for food analysis!")
-    except Exception as e:
-        logger.error(f"Failed to load model: {e}")
-        # Continue anyway for debugging
+
 
 @app.get("/")
 async def root():

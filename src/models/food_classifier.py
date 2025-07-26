@@ -21,7 +21,7 @@ class MultiTaskFoodModel(nn.Module):
         super(MultiTaskFoodModel, self).__init__()
         
         # Load pre-trained ResNet50 backbone
-        self.backbone = models.resnet50(pretrained=True)
+        self.backbone = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
         
         # Remove the final classification layer to get feature extractor
         self.feature_extractor = nn.Sequential(*list(self.backbone.children())[:-1])
