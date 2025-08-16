@@ -1,1 +1,0 @@
-# Compare different CNN architectures

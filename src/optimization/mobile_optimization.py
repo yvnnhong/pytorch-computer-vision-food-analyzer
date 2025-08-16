@@ -1,1 +1,0 @@
-# iOS/mobile deployment optimization

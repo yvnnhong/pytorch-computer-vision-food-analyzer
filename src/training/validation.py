@@ -1,1 +1,0 @@
-# Validation loop and metrics
