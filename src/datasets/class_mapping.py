@@ -1,1 +1,0 @@
-# Food/cuisine class mappings

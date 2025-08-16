@@ -1,4 +1,5 @@
 # Inference Directory
+# NOTE: FIX THIS BRO FIX ALL THE READMES ALDSKFLKFSJL
 
 Model inference and deployment components for production food classification service.
 
