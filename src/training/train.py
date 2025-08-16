@@ -311,7 +311,8 @@ def main():
     BATCH_SIZE = 16  # Smaller batch size for stability
     NUM_EPOCHS = 15
     LEARNING_RATE = 0.001
-    SUBSET_SIZE = 200  # Use subset for quick training (remove for full training)
+    #SUBSET_SIZE = None (use full dataset for maximum accuracy, but this will take ~83 hours)
+    SUBSET_SIZE = 1000
     
     # Device setup
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

@@ -16,17 +16,6 @@ Image preprocessing pipeline including resizing, normalization, and basic augmen
 ### preprocessing.py
 Data cleaning and preparation utilities for converting raw datasets into training-ready format.
 
-## Advanced Features
-
-### augmentation.py
-Data augmentation techniques including rotation, color jittering, and geometric transforms.
-
-### synthetic_data.py
-Synthetic data generation utilities for data balancing and augmentation.
-
-### class_mapping.py
-Mapping utilities between food categories, cuisine types, and nutrition databases.
-
 ## Usage
 
 ```python

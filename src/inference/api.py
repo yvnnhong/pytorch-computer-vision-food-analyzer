@@ -96,6 +96,7 @@ class FoodAnalyzer:
             # Create the selected model architecture
             if model_type == "basic":
                 self.current_model = create_model(
+                    num_food_classes=126, #added this for testing 
                     num_cuisine_classes=num_cuisine_classes,
                     device=self.device
                 )
@@ -104,7 +105,7 @@ class FoodAnalyzer:
             elif model_type == "advanced":
                 self.current_model = create_resnet_multitask(
                     architecture='advanced',
-                    num_food_classes=101,
+                    num_food_classes=101,#class mismatch 
                     num_cuisine_classes=num_cuisine_classes,
                     backbone='resnet50',
                     pretrained=True
