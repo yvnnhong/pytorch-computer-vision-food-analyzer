@@ -5,6 +5,8 @@ import torch.nn.functional as F
 from torchvision import models
 import json
 
+#food_classifier.py contains the core logic -- don't refactor 
+
 class MultiTaskFoodModel(nn.Module):
     """
     Multi-task CNN for food classification, cuisine prediction, and nutrition regression.
